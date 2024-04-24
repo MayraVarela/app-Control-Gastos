@@ -6,7 +6,7 @@ export function MyRoutes() {
     const { user } = UserAuth();
 
     return (
-<BrowserRouter>
+
     <Routes>
        <Route path="/Login" element={<Login />} />
        <Route element={<ProtectedRoute user={user} redirectTo="/login" />}>
@@ -14,6 +14,6 @@ export function MyRoutes() {
        </Route>
        
     </Routes>
-</BrowserRouter>
+
     )
 }
