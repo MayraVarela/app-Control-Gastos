@@ -1,27 +1,42 @@
-import {MyRoutes, Light, Dark, AuthContextProvider, Sidebar, Device, MenuHambur} from "./index";
+import {MyRoutes, Light, Dark, AuthContextProvider, Sidebar, Device, MenuHambur, useUsuariosStore} from "./index";
 import {createContext, useState} from "react";
 import {ThemeProvider} from "styled-components";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { styled } from "styled-components"
 import { useLocation } from "react-router-dom"
+import { useQuery } from "@tanstack/react-query";
 
 
 export const ThemeContext = createContext(null)
 
 function App() {
-  const { pathname } = useLocation();
-  const [theme, setTheme] = useState("light");
-  const themeStyle = theme ==="light"?Light : Dark;
 
+  const {mostrarUsuarios, data usuarios}= useUsuariosStore();
+
+  const { pathname } = useLocation();
+  //const [theme, setTheme] = useState("light");
+  const theme = datausuarios.tema==="0"?"light":"Dark"
+  const themeStyle = theme ==="light"?Light : Dark;
   const [sidebarOpen, setSidebarOpen]= useState(false);
+
+
+const { isLoading, error } = useQuery({queryKey:["mostrar usuarios"],queryFn: () =>
+    mostrarUsuarios()}
+  );
   
+  if(isLoading){
+    return <h1>Cargando...</h1>
+  } if (error){
+    return <h1>Error...</h1>
+  }
+
   return (
     <>
-    <ThemeContext.Provider value={{setTheme, theme}}>
+    <ThemeContext.Provider value={{theme}}>
       <ThemeProvider theme={themeStyle}>
         <AuthContextProvider>
           
-{pathname!="/login"?(<Container className={sidebarOpen ? "active" : ""}>
+            {pathname!="/login"?(<Container className={sidebarOpen ? "active" : ""}>
             <div className="ContentSidebar">
             <Sidebar  state={sidebarOpen} setState={() => setSidebarOpen(!sidebarOpen)}/>
             </div>
@@ -34,7 +49,7 @@ function App() {
             </Containerbody>
           </Container>):(<MyRoutes />)}
           
-         
+    
 
          <ReactQueryDevtools initialIsOpen={true} />
         </AuthContextProvider>
