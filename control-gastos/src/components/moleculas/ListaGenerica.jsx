@@ -1,5 +1,7 @@
 import styled from "styled-components";
-import { Device, v, BtnCerrar } from "../../index";
+import { Device, v} from "../../index";
+import {BtnCerrar} from "../../components/atomos/BtnCerrar"
+
 export function ListaGenerica({ data, setState, funcion, scroll,bottom }) {
   function seleccionar(p) {
     funcion(p);

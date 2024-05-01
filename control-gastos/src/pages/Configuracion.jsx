@@ -1,16 +1,14 @@
 import styled from "styled-components";
-import {ConfiguracionTemplate} from "../index"
-
+import { ConfiguracionTemplate, Fondo1 } from "../index";
 export function Configuracion() {
-
   return (
-  <Container>
-
-<ConfiguracionTemplate />
-
-  </Container>
+    <Container>
+       
+      <ConfiguracionTemplate />
+    
+    </Container>
   );
 }
-const Container =styled.main`
-  height: 100vh;
-`
+const Container = styled.main`
+ height: 100vh;
+`;

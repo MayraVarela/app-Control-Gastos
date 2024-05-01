@@ -1,64 +1,74 @@
-import {MyRoutes, Light, Dark, AuthContextProvider, Sidebar, Device, MenuHambur, useUsuariosStore} from "./index";
-import {createContext, useState} from "react";
-import {ThemeProvider} from "styled-components";
+import {
+  MyRoutes,
+  Sidebar,
+  Device,
+  Light,
+  Dark,
+  AuthContextProvider,
+  MenuHambur,
+  useUsuariosStore,
+  Login,
+  SpinnerLoader,
+  Fondo1,
+} from "./index";
+import { useLocation } from "react-router-dom";
+import { createContext, useState } from "react";
+import { ThemeProvider } from "styled-components";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { styled } from "styled-components"
-import { useLocation } from "react-router-dom"
+import { styled } from "styled-components";
 import { useQuery } from "@tanstack/react-query";
-
-
-export const ThemeContext = createContext(null)
-
+export const ThemeContext = createContext(null);
 function App() {
-
-  const {mostrarUsuarios, data usuarios}= useUsuariosStore();
+  const { mostrarUsuarios, datausuarios } = useUsuariosStore();
 
   const { pathname } = useLocation();
-  //const [theme, setTheme] = useState("light");
-  const theme = datausuarios.tema==="0"?"light":"Dark"
-  const themeStyle = theme ==="light"?Light : Dark;
-  const [sidebarOpen, setSidebarOpen]= useState(false);
-
-
-const { isLoading, error } = useQuery({queryKey:["mostrar usuarios"],queryFn: () =>
+  // const [theme, setTheme] = useState("dark");
+  const theme = datausuarios?.tema === "0" ? "light" : "dark";
+  const themeStyle = theme === "light" ? Light : Dark;
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { isLoading, error } = useQuery({queryKey:["mostrar usuarios"],queryFn: () =>
     mostrarUsuarios()}
   );
-  
-  if(isLoading){
-    return <h1>Cargando...</h1>
-  } if (error){
-    return <h1>Error...</h1>
+
+  if (isLoading) {
+    return <SpinnerLoader />;
+  }
+  if (error) {
+    return <h1>Error..</h1>;
   }
 
   return (
     <>
-    <ThemeContext.Provider value={{theme}}>
-      <ThemeProvider theme={themeStyle}>
-        <AuthContextProvider>
-          
-            {pathname!="/login"?(<Container className={sidebarOpen ? "active" : ""}>
-            <div className="ContentSidebar">
-            <Sidebar  state={sidebarOpen} setState={() => setSidebarOpen(!sidebarOpen)}/>
-            </div>
-            <div className="ContentMenuHambur">
-            <MenuHambur />
-            </div>
-             
-            <Containerbody>
-              <MyRoutes />
-            </Containerbody>
-          </Container>):(<MyRoutes />)}
-          
-    
+      <ThemeContext.Provider value={{ theme }}>
+        <ThemeProvider theme={themeStyle}>
+          <AuthContextProvider>
+            {pathname != "/login" ? (
+              <Container className={sidebarOpen ? "active" : ""}>
+                <div className="ContentSidebar">
+                  <Sidebar
+                    state={sidebarOpen}
+                    setState={() => setSidebarOpen(!sidebarOpen)}
+                  />
+                </div>
+                <div className="ContentMenuambur">
+                  <MenuHambur />
+                </div>
 
-         <ReactQueryDevtools initialIsOpen={true} />
-        </AuthContextProvider>
-      </ThemeProvider>
-    </ThemeContext.Provider>
+                <Containerbody>
+                  <MyRoutes />
+                </Containerbody>
+              </Container>
+            ) : (
+              <Login />
+            )}
+
+            <ReactQueryDevtools initialIsOpen={true} />
+          </AuthContextProvider>
+        </ThemeProvider>
+      </ThemeContext.Provider>
     </>
   );
 }
-
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -93,4 +103,4 @@ const Containerbody = styled.div`
     grid-column: 2;
   }
 `;
-export default App
+export default App;

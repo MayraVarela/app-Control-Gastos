@@ -1,47 +1,63 @@
 import styled from "styled-components";
-import {v, LinksArray, SecondarylinksArray, SidebarCard} from "../../../index"
+import {
+  v,
+  LinksArray,
+  SecondarylinksArray,
+  SidebarCard,
+} from "../../../index";
 import { NavLink } from "react-router-dom";
-
-export function Sidebar({ state, setState })  {
-
+export function Sidebar({ state, setState }) {
   return (
     <Main $isopen={state.toString()}>
       <span className="Sidebarbutton" onClick={() => setState(!state)}>
         {<v.iconoflechaderecha />}
       </span>
       <Container $isopen={state.toString()} className={state ? "active" : ""}>
-            <div className="Logocontent">
-        <div className="imgcontent">
-        <img src={v.logo} />
+        <div className="Logocontent">
+          <div className="imgcontent">
+            <img src={v.logo} />
+          </div>
+          <h2>Piggy Bank</h2>
         </div>
-        <h2>Piggy Bank</h2>
-
-         </div>
-         {LinksArray.map(({ icon, label, to }) => (
-          <div className={state ? "LinkContainer active": "LinkContainer"} key={label}
+        {LinksArray.map(({ icon, label, to }) => (
+          <div
+            className={state ? "LinkContainer active" : "LinkContainer"}
+            key={label}
           >
-        <NavLink to={to} className={({ isActive }) => `Links${isActive ? ` active` : ``}`}>
-          <div className="Linkicon">{icon}</div>
-       {state && (<span>{label}</span>)}
-        </NavLink> 
-        </div>
-        ))}  
-         <Divider />
-
-         {SecondarylinksArray.map(({ icon, label, to }) => (
-          <div className={state ? "LinkContainer active": "LinkContainer"} key={label}
+            <NavLink
+              to={to}
+              className={({ isActive }) => `Links${isActive ? ` active` : ``}`}
+            >
+              <div className="Linkicon">{icon}</div>
+              <span className={state ? "label_ver" : "label_oculto"}>
+                {label}
+              </span>
+              {/* {state && <span>{label}</span>} */}
+            </NavLink>
+          </div>
+        ))}
+        <Divider />
+        {SecondarylinksArray.map(({ icon, label, to }) => (
+          <div
+            className={state ? "LinkContainer active" : "LinkContainer"}
+            key={label}
           >
-        <NavLink to={to} className={({ isActive }) => `Links${isActive ? ` active` : ``}`}>
-          <div className="Linkicon">{icon}</div>
-       {state && (<span>{label}</span>)}
-        </NavLink> 
-        </div>
-        ))} 
+            <NavLink
+              to={to}
+              className={({ isActive }) => `Links${isActive ? ` active` : ``}`}
+            >
+              <div className="Linkicon">{icon}</div>
+              <span className={state ? "label_ver" : "label_oculto"}>
+                {label}
+              </span>
+              {/* {state && <span>{label}</span>} */}
+            </NavLink>
+          </div>
+        ))}
         <Divider />
         {state && <SidebarCard />}
-        </Container>
+      </Container>
     </Main>
- 
   );
 }
 const Container = styled.div`
@@ -51,7 +67,7 @@ const Container = styled.div`
   padding-top: 20px;
   z-index: 1;
   height: 100%;
-  width:65px;
+  width: 65px;
   transition: 0.1s ease-in-out;
   overflow-y: auto;
   overflow-x: hidden;
@@ -64,27 +80,23 @@ const Container = styled.div`
     border-radius: 10px;
   }
 
-
   &.active {
     width: 220px;
   }
- 
   .Logocontent {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-bottom: 60px;
-
     .imgcontent {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 30px;
       cursor: pointer;
-      transition: 0.5s ease-in-out;
+      transition: 0.3s ease;
       transform: ${({ $isopen }) => ($isopen==="true" ? `scale(0.7)` : `scale(1.5)`)}
         rotate(${({ theme }) => theme.logorotate});
-
       img {
         width: 100%;
         animation: flotar 1.7s ease-in-out infinite alternate;
@@ -93,7 +105,6 @@ const Container = styled.div`
     h2 {
       display: ${({ $isopen }) => ($isopen==="true" ? `block` : `none`)};
     }
-
     @keyframes flotar {
       0% {
         transform: translate(0, 0px);
@@ -106,7 +117,7 @@ const Container = styled.div`
       }
     }
   }
-  .LinkContainer{
+  .LinkContainer {
     margin: 5px 0;
     transition: all 0.3s ease-in-out;
     padding: 0 5%;
@@ -114,40 +125,46 @@ const Container = styled.div`
     &:hover {
       background: ${(props) => props.theme.bgAlpha};
     }
-    .Links{
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: calc(${() => v.smSpacing} - 2px) 0;
-    color: ${(props) => props.theme.text};
-    height: 60px;
-
-    .Linkicon {
+    .Links {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: calc(${() => v.smSpacing} - 2px) 0;
+      color: ${(props) => props.theme.text};
+      height: 60px;
+      .Linkicon {
         padding: ${() => v.smSpacing} ${() => v.mdSpacing};
         display: flex;
         svg {
           font-size: 25px;
         }
-    }
-    &.active{
+      }
+      .label_ver {
+        transition: 0.3s ease-in-out;
+        opacity: 1;
+      }
+      .label_oculto {
+        opacity: 0;
+      }
+      &.active {
         color: ${(props) => props.theme.bg5};
         font-weight:600;
-         &::before{
-            content: "";
+        &::before {
+          content: "";
           position: absolute;
           height: 100%;
           background: ${(props) => props.theme.bg5};
           width: 4px;
           border-radius: 10px;
           left: 0;
+        }
       }
     }
-        
+    &.active {
+      padding: 0;
     }
   }
-  
-`
-
+`;
 const Main = styled.div`
   .Sidebarbutton {
     position: fixed;

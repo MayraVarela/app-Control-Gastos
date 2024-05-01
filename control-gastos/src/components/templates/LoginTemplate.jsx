@@ -1,25 +1,25 @@
 import styled from "styled-components";
-import {Btnsave, v, useAuthStore} from "../../index"
-
+import { Btnsave, v,useAuthStore } from "../../index";
 export function LoginTemplate() {
   const {signInWithGoogle} = useAuthStore();
   
   return (
-  <Container imgfondo={v.imagenfondo}>
-    <div className="contentCard">
-        
+    <Container imgfondo={v.imagenfondo}>
+      <div className="contentCard">
+        <span className="version">versión 1.0</span>
         <div className="contentImg">
-            <img src={v.logo}/>
+          <img src={v.logo}/>
         </div>
-        <Titulo>Piggy Bank</Titulo>
+        <Titulo>Peggy Bank</Titulo>
         <p className="frase">Toma el control de tus 💵gastos e 💰ingresos</p>
         <ContainerBtn>
-        <Btnsave titulo="Iniciar con google" icono={<v.iconogoogle />} bgcolor={v.colorSecundario} funcion={signInWithGoogle}/>
+          <Btnsave titulo="Iniciar con google" icono={<v.iconogoogle />} bgcolor={v.colorSecundario} funcion={signInWithGoogle}/>
         </ContainerBtn>
-    </div>
-  </Container>);
+      </div>
+    </Container>
+  );
 }
-const Container =styled.div`
+const Container = styled.div`
   background-image: url(${(props) => props.imgfondo});
   background-repeat: no-repeat;
   background-size: cover;
@@ -40,15 +40,19 @@ const Container =styled.div`
     box-shadow: 8px 5px 18px 3px rgba(0, 0, 0, 0.35);
     justify-content:center;
     width:auto;
-    height:90%;
-
+    height:80%;
+    .version {
+      color: #727272;
+      text-align: start;
+    }
     .contentImg{
       width: 100%;
       display:flex;
       justify-content:center;
     
       img{
-        width: 60%;
+        width: 40%;
+     
         animation:flotar 1.5s ease-in-out infinite alternate;
       }
     }
@@ -68,11 +72,11 @@ const Container =styled.div`
       transform: translate(0, -0px);
     }
   }
-`
-const Titulo = styled.span `
-    font-size: 5rem;
-    font-weight: 700;
-`
+`;
+const Titulo = styled.span`
+  font-size: 5rem;
+  font-weight: 700;
+`;
 const ContainerBtn = styled.div`
   display: flex;
   justify-content: center;

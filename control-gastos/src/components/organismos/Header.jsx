@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import {ContentHeader, DataUser} from "../../index"
+import {DataUser} from "../../index"
+import {ContentHeader} from "../../components/atomos/ContentHeader"
 
 export function Header({ stateConfig }) {
   return (

@@ -1,19 +1,24 @@
 import styled from "styled-components";
-import {UserAuth, BtnCircular, v, ContentMenuDesplegable, DesplegableUser, useAuthStore} from "../../index"
-
+import {
+  UserAuth,
+  BtnCircular,
+  v,
+  ListaMenuDesplegable,
+  DesplegableUser,
+  useAuthStore,
+} from "../../index";
 export function DataUser({ stateConfig }) {
   const { user } = UserAuth();
-
   const { signout } = useAuthStore();
-  const funcionXtipo = async(tipo) => {
-    if (tipo === "cerrarsesion") {
+  const funcionXtipo = async (p) => {
+   
+    if (p.tipo === "cerrarsesion") {
+     
       await signout();
     }
   };
-
-   return (
+  return (
     <Container onClick={stateConfig.setState}>
-
       <div className="imgContainer">
         <img src={user.picture} />
       </div>
@@ -30,7 +35,7 @@ export function DataUser({ stateConfig }) {
       />
       <span className="nombre">{user.name}</span>
       {stateConfig.state && (
-        <ContentMenuDesplegable
+        <ListaMenuDesplegable
           data={DesplegableUser}
           top="62px"
           funcion={(p)=>funcionXtipo(p)}
@@ -39,8 +44,7 @@ export function DataUser({ stateConfig }) {
     </Container>
   );
 }
-
-const Container =styled.div`
+const Container = styled.div`
   position: relative;
   top: 0;
   right: 0;
@@ -52,7 +56,6 @@ const Container =styled.div`
   border-radius: 50px;
   margin: 15px;
   cursor: pointer;
-
   .imgContainer {
     height: 40px;
     width: 40px;
@@ -64,7 +67,6 @@ const Container =styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-
     img {
       width: 100%;
       object-fit: cover;
@@ -81,4 +83,4 @@ const Container =styled.div`
     text-overflow: ellipsis;
     word-wrap: break-word;
   }
-`
+`;

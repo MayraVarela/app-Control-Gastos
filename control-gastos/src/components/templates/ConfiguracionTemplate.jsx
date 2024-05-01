@@ -1,52 +1,63 @@
 import styled from "styled-components";
-import {Header, Selector, v, ListaPaises, useUsuariosStore, ListaGenerica,TemasData, Btnsave } from "../../index"
-import {useState} from "react"
+import {
+  Header,
+  Selector,
+  v,
+  ListaPaises,
+  useUsuariosStore,
+  ListaGenerica,
+  TemasData,
+  Btnsave,CardEliminarData
+  
+} from "../../index";
+import { useState } from "react";
 
 
 export function ConfiguracionTemplate() {
   const { datausuarios, editartemamonedauser } = useUsuariosStore();
-  const [selectTema, setSelecttema] = useState([]);
-  const [select, setSelect] = useState([]);
+  const [select, setSelect] = useState({});
+  const [selectTema, setSelectTema] = useState({});
   const [state, setState] = useState(false);
   const [stateListaPaises, setStateListaPaises] = useState(false);
   const [stateListaTemas, setStateListaTemas] = useState(false);
 
-  const moneda = select.symbol; 
-  const pais = select.countryName;
-  const paisSeleccionado = "🐷 " + moneda + " " + pais;
+  // Validación de datos
+  const moneda = select.symbol ?? datausuarios?.moneda ?? 'Desconocido';
+  const pais = select.countryName ?? datausuarios?.pais ?? 'Desconocido';
+  const paisSeleccionado = `🐷 ${moneda} ${pais}`;
 
+  // Validación de tema
+  const temabd = datausuarios?.tema === '0' ? 'light' : 'dark';
+  const iconobd = temabd === 'light' ? '🌞' : '🌚';
+  const temainicial = selectTema.tema ?? temabd;
+  const iconoinicial = selectTema.icono ?? iconobd;
+  const temaSeleccionado = `${iconoinicial} ${temainicial}`;
 
-/*const moneda = select.symbol ? select.symbol : datausuarios.moneda;
-  const pais = select.countryName ? select.countryName : datausuarios.pais;
-  const paisSeleccionado = "🐷 " + moneda + " " + pais;*/
-
- //tema
- const iconobd = datausuarios.tema === "0" ? "🌞" : "🌚";
- const temabd = datausuarios.tema === "0" ? "light" : "dark";
- const temainicial = selectTema.tema ? selectTema.tema : temabd;
- const iconoinicial = selectTema.icono ? selectTema.icono : iconobd;
- const temaSeleccionado = iconoinicial + " " + temainicial;
-
-   //funcion editar
-   const editar = async () => {
-    const themeElegido = selectTema.descripcion === "light" ? "0" : "1";
+  // Funcion para editar
+  const editar = async () => {
+    const themeElegido = temainicial === 'light' ? '0' : '1';
     const p = {
       tema: themeElegido,
-      moneda: moneda,
-      pais: pais,
-      id: datausuarios.id,
+      moneda,
+      pais,
+      id: datausuarios?.id ?? 'Desconocido',
     };
-    await editartemamonedauser(p);
+    try {
+      await editartemamonedauser(p);
+    } catch (error) {
+      console.error('Error al editar datos:', error);
+    }
   };
 
-
   return (
+    <Container>
+      <header className="header">
+        <Header
+          stateConfig={{ state, setState: () => setState(!state) }}
+        />
+      </header>
 
-  <Container>
-<header className="header"> 
-<Header stateConfig={{ state: state, setState: () => setState(!state) }} />
-</ header>,
-<section className="area2">
+      <section className="area2">
         <h1>AJUSTES</h1>
         <ContentCard>
           <span>Moneda:</span>
@@ -58,11 +69,12 @@ export function ConfiguracionTemplate() {
           />
           {stateListaPaises && (
             <ListaPaises
-              setSelect={(p) => setSelect(p)}
+              setSelect={setSelect}
               setState={() => setStateListaPaises(!stateListaPaises)}
             />
           )}
         </ContentCard>
+        
         <ContentCard>
           <span>Tema:</span>
           <Selector
@@ -70,27 +82,30 @@ export function ConfiguracionTemplate() {
             color={v.colorselector}
             state={stateListaTemas}
             funcion={() => setStateListaTemas(!stateListaTemas)}
-          ></Selector>
+          />
           {stateListaTemas && (
-            <ListaGenerica bottom="88%"
+            <ListaGenerica
               data={TemasData}
               setState={() => setStateListaTemas(!stateListaTemas)}
-              funcion={setSelecttema}
+              funcion={setSelectTema}
             />
           )}
         </ContentCard>
+        
         <Btnsave
           titulo="Guardar"
           bgcolor={v.colorselector}
           icono={<v.iconoguardar />}
           funcion={editar}
         />
-        <CardEliminarData/>
+
+        <CardEliminarData />
       </section>
     </Container>
   );
 }
-const Container =styled.div`
+
+const Container = styled.div`
   min-height: 100vh;
   padding: 15px;
   width: 100%;
@@ -99,28 +114,18 @@ const Container =styled.div`
   display: grid;
   grid-template:
     "header" 100px
-    "area1" 100px
-    "area2" 50px    
-    "main" auto;
+    "area2" auto;
 
-    .header {
+  .header {
     grid-area: header;
-    background-color: rgba(103, 93, 241, 0.14); 
+    /* background-color: rgba(103, 93, 241, 0.14); */
     display: flex;
     align-items: center;
   }
 
-  .area1{
-    grid-area: area1;
-    background-color: violet;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   .area2 {
     grid-area: area2;
-    background-color: rgba(77, 237, 106, 0.14); 
+    /* background-color: rgba(77, 237, 106, 0.14); */
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -130,13 +135,8 @@ const Container =styled.div`
     h1 {
       font-size: 3rem;
     }
-}
-
-.main {
-    grid-area: main;
-    background-color: pink;
-}
-`
+  }
+`;
 const ContentCard = styled.div`
   display: flex;
   text-align: start;
