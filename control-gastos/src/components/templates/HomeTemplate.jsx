@@ -14,30 +14,9 @@ export function HomeTemplate() {
         <SubText>
          Una de las pocas páginas gratuitas para el sistema de control de gastos
           <br />
-          ❤️Gracias por elegirnos
+          Hoy es el dia para tomar el control de tus finanzas❤️
           <br /> 
         </SubText>
-        <ContainerAutor>
-          <div className="contentImg">
-            <img src="https://i.ibb.co/6Nw0B9p/yjtityutyu.png" />
-          </div>
-          <div className="contentDescripcion">
-            <b>Ing. Franklin Bustamante</b>
-            <span>"cualquiera puede programar"</span>
-          </div>
-        </ContainerAutor>
-        <ButtonContainer>
-          <Btnsave url="https://t.me/htmlycss369"
-            titulo="UNIRSE A Telegram"
-            bgcolor="#BF94FF"
-            icono={<v.iconoreact />}
-          />
-          <Btnsave url="https://www.udemy.com/course/sistema-para-el-control-de-gastos-con-reactjs-y-postgresql/?couponCode=CERDYNREACT"
-            titulo="Ver curso"
-            bgcolor="#fb37b7"
-            icono={<v.iconocorona />}
-          />
-        </ButtonContainer>
       </Container>
     </Main>
   );

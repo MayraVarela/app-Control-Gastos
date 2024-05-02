@@ -10,8 +10,7 @@ import {
   Login,
   SpinnerLoader,
   Fondo1,
-} from "./index";
-import { useLocation } from "react-router-dom";
+} from "./index";import { useLocation } from "react-router-dom";
 import { createContext, useState } from "react";
 import { ThemeProvider } from "styled-components";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -69,6 +68,8 @@ function App() {
     </>
   );
 }
+
+
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr;

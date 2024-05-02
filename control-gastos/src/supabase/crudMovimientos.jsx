@@ -41,7 +41,7 @@ export async function EliminarMovimientos(p) {
 }
 export async function MostrarMovimientosPorMesAño(p) {
   try {
-    const { data } = await supabase.rpc("mmovimientosmesanio", {
+    const { data } = await supabase.rpc("movimientosmesanio", {
       anio: p.año,
       mes: p.mes,
       iduser: p.idusuario,
