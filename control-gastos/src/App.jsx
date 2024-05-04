@@ -49,9 +49,9 @@ function App() {
                     setState={() => setSidebarOpen(!sidebarOpen)}
                   />
                 </div>
-                <div className="ContentMenuambur">
+                {/* <div className="ContentMenuambur">
                   <MenuHambur />
-                </div>
+                </div> */}
 
                 <Containerbody>
                   <MyRoutes />

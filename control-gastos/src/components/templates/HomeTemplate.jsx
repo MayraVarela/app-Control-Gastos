@@ -12,7 +12,7 @@ export function HomeTemplate() {
           Bienvenido a Piggy Bank <br /> 🐷
         </Title>
         <SubText>
-         Una de las pocas páginas gratuitas para el sistema de control de gastos
+         Una APP gratuita para manejar tus gastos
           <br />
           Hoy es el dia para tomar el control de tus finanzas❤️
           <br /> 

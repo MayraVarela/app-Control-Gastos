@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { ClimbingBoxLoader } from "react-spinners";
 import { useOperaciones } from "../../index";
+
+
 export function Spinner() {
   const { colorCategoria } = useOperaciones();
   return (

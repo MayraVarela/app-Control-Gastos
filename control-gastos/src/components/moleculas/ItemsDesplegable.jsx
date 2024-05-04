@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Icono} from "../../index"
+import {Icono, Colorcontent} from "../../index"
 
 export function ItemsDesplegable({item, funcion}) {
   return (

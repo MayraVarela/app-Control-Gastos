@@ -5,6 +5,7 @@ import {
   InsertarCategorias,
   MostrarCategorias,
 } from "../index";
+
 export const useCategoriasStore = create((set, get) => ({
   datacategoria: [],
   categoriaItemSelect: [],

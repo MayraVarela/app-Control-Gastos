@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { v } from "../../index";
+
 export function BtnCerrar({ funcion }) {
+  
   return <Container onClick={funcion}>{<v.iconocerrar />}</Container>;
 }
 const Container = styled.span`

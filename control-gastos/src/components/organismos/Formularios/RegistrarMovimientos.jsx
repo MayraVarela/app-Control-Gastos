@@ -15,6 +15,7 @@ import {
   Btnsave,useUsuariosStore
 } from "../../../index";
 import { useEffect } from "react";
+
 export function RegistrarMovimientos({ setState, state, dataSelect, accion }) {
   const { cuentaItemSelect } = useCuentaStore();
   const { datacategoria, categoriaItemSelect, selectCategoria } =

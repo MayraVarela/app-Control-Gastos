@@ -10,11 +10,14 @@ import {
   Barras,
 } from "../../index";
 import { useQuery } from "@tanstack/react-query";
+
+
 export function Tabs() {
   const [activeTab, setactiveTab] = useState(0);
   const handleClick = (index) => {
     setactiveTab(index);
   };
+  
   const { idusuario } = useUsuariosStore();
   const { año, mes, tipo,tituloBtnDesMovimientos } = useOperaciones();
   const { dataRptMovimientosAñoMes, rptMovimientosAñoMes } =

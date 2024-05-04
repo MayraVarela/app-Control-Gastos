@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { create } from "zustand";
 import { supabase } from "../index";
+
 export const useAuthStore = create((set) => ({
   isAuth:false,
   datauserGoogle: [],

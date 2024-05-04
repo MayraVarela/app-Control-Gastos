@@ -1,10 +1,21 @@
 import Swal from "sweetalert2";
 import { supabase, ObtenerIdAuthSupabase } from "../index";
 export const InsertarUsuarios = async (p) => {
-  try {
-    const { data } = await supabase.from("usuarios").insert(p).select();
+
+    const { data,error } = await supabase.from("usuarios").insert(p).select();
+    if(error){
+      // Swal.fire({
+     
+      //   icon: "success",
+      //   title: "Error en usuarios "+ error.message,
+      //   showConfirmButton: false,
+      //   timer: 3500,
+      // });
+      return;
+    }
     return data;
-  } catch (error) {}
+
+
 };
 export const MostrarUsuarios = async () => {
   try {

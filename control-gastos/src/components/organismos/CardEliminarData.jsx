@@ -3,6 +3,8 @@ import { Btnsave } from "../moleculas/Btnsave";
 import { v } from "../../index";
 import { useCategoriasStore, useUsuariosStore } from "../../index";
 import Swal from "sweetalert2";
+
+
 export function CardEliminarData() {
   const { eliminarCategoriasTodas } = useCategoriasStore();
   const { datausuarios } = useUsuariosStore();

@@ -1,4 +1,4 @@
-import { supabase } from "../supabase/Supabase.config";
+import { supabase } from "./Supabase.config";
 import Swal from "sweetalert2";
 export const InsertarMovimientos = async (p) => {
   try {
@@ -41,7 +41,7 @@ export async function EliminarMovimientos(p) {
 }
 export async function MostrarMovimientosPorMesAño(p) {
   try {
-    const { data } = await supabase.rpc("movimientosmesanio", {
+    const { data } = await supabase.rpc("mmovimientosmesanio", {
       anio: p.año,
       mes: p.mes,
       iduser: p.idusuario,

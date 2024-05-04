@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useOperaciones, v } from "../../../index";
+
+
 export const Paginacion = ({ pagina, setPagina, maximo }) => {
   const { bgCategoria, colorCategoria } = useOperaciones();
   const [input, setInput] = useState(1);
